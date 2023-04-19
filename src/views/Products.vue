@@ -78,6 +78,7 @@ export default {
     ProductModal,
     DelModal
   },
+  inject: ['emitter'],
   methods: {
     getProducts () {
       const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/admin/products`
@@ -118,7 +119,20 @@ export default {
           this.isLoading = false
           console.log(response)
           productComponent.hideModal()
-          this.getProducts()
+          if (response.data.success) {
+            this.getProducts()
+            console.log(response.data.message)
+            this.emitter.emit('push-message', {
+              style: 'success',
+              title: '更新成功'
+            })
+          } else {
+            this.emitter.emit('push-message', {
+              style: 'danger',
+              title: '更新失敗',
+              content: response.data.message.join('、')
+            })
+          }
         }
       )
     },
@@ -136,7 +150,14 @@ export default {
         console.log(response.data)
         const delComponent = this.$refs.delModal
         delComponent.hideModal()
-        this.getProducts()
+        if (response.data.success) {
+          this.getProducts()
+          console.log(response.data.message)
+          this.emitter.emit('push-message', {
+            style: 'success',
+            title: '商品已刪除'
+          })
+        }
       })
     }
   },
