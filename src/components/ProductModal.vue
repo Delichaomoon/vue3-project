@@ -198,8 +198,7 @@
 </template>
 
 <script>
-import Modal from 'bootstrap/js/dist/modal.js'
-import { config } from 'process'
+import modalMixin from '@/mixins/ModalMixin'
 export default {
   props: {
     product: {
@@ -221,27 +220,19 @@ export default {
     }
   },
   methods: {
-    showModal () {
-      this.modal.show()
-    },
-    hideModal () {
-      this.modal.hide()
-    },
     uploadFile () {
       const uploadedFile = this.$refs.fileInput.files[0]
       const formData = new FormData()
       formData.append('file-to-upload', uploadedFile)
       const url = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/admin/upload`
-      this.$http.post(url, formData, config).then((res) => {
+      this.$http.post(url, formData).then((res) => {
         console.log(res.data)
-        // if (res.data.success) {
-        //   this.tempProduct.imageUrl = response.data.imageUrl
-        // }
+        if (res.data.success) {
+          this.tempProduct.imageUrl = res.data.imageUrl
+        }
       })
     }
   },
-  mounted () {
-    this.modal = new Modal(this.$refs.modal)
-  }
+  mixins: [modalMixin]
 }
 </script>
