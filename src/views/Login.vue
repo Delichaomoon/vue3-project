@@ -1,5 +1,6 @@
 <!-- eslint-disable -->
 <template>
+  <Navbar></Navbar>
   <div class="container mt-5">
     <form class="row justify-content-center" @submit.prevent="signIn">
       <div class="col-md-6">
@@ -38,26 +39,32 @@
 </template>
 <!-- eslint-disable -->
 <script>
+import Navbar from '@/components/Navbar.vue';
+
 export default {
-  data() {
-    return {
-      user: {
-        username: '',
-        password: ''
-      }
-    }
-  },
-  methods: {
-    signIn() {
-      const api = `${process.env.VUE_APP_API}admin/signin`
-      this.$http.post(api, this.user).then((res) => {
-        if (res.data.success) {
-          const {token ,expired } =res.data;
-          document.cookie = `hexToken=${token}; expired=${new Date(expired)}`
-          this.$router.push('/dashboard/products')
+    data() {
+        return {
+            user: {
+                username: "",
+                password: ""
+            }
+        };
+    },
+    components: {
+      Navbar
+    },
+    methods: {
+        signIn() {
+            const api = `${process.env.VUE_APP_API}admin/signin`;
+            this.$http.post(api, this.user).then((res) => {
+                if (res.data.success) {
+                    const { token, expired } = res.data;
+                    document.cookie = `hexToken=${token}; expired=${new Date(expired)}`;
+                    this.$router.push("/dashboard/products");
+                }
+            });
         }
-      })
-    }
-  }
+    },
+    components: { Navbar }
 }
 </script>
