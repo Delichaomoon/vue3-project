@@ -13,7 +13,7 @@ module.exports = {
     'vue/multi-word-component-names': [
       'error',
       {
-        ignores: ['Loading', 'Form', 'Field', 'Dashboard', 'Products', 'Navbar', 'Toast', 'Pagination']
+        ignores: ['Loading', 'Form', 'Field', 'Dashboard', 'Products', 'Navbar', 'Toast', 'Pagination', 'Orders', 'Coupons']
       }
     ]
   }

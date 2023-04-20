@@ -21,6 +21,16 @@ const routes = [
         path: 'products',
         name: '商品列表',
         component: () => import('../views/Products.vue')
+      },
+      {
+        path: 'orders',
+        name: '訂單列表',
+        component: () => import('../views/Orders.vue')
+      },
+      {
+        path: 'cooupons',
+        name: '優惠券',
+        component: () => import('../views/Coupons.vue')
       }
     ]
   }
@@ -28,7 +38,8 @@ const routes = [
 
 const router = createRouter({
   history: createWebHashHistory(),
-  routes
+  routes,
+  linkActiveClass: 'active'
 })
 
 export default router
