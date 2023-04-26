@@ -33,13 +33,39 @@ const routes = [
         component: () => import('../views/Coupons.vue')
       }
     ]
+  },
+  {
+    path: '/user',
+    name: '使用者',
+    component: () => import('../views/Userboard.vue'),
+    children: [
+      {
+        path: 'cart',
+        name: '購物車',
+        component: () => import('../views/UserCart.vue')
+      },
+      {
+        path: 'product/:productId',
+        name: '各別商品',
+        component: () => import('../views/UserProducts.vue')
+      }
+    ]
+  },
+  {
+    path: '/:pathMatch(.*)*',
+    component: () => import('../views/NotFound.vue')
   }
 ]
 
 const router = createRouter({
   history: createWebHashHistory(),
   routes,
-  linkActiveClass: 'active'
+  linkActiveClass: 'active',
+  scrollBehavior (to, from, savedPosition) {
+    console.log(to, from, savedPosition)
+    // `to` 和 `from` 都是路由路径
+    // `savedPosition` 如果不存在可以为 null
+  }
 })
 
 export default router

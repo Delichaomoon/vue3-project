@@ -12,6 +12,11 @@
           <router-link class="nav-link" :to="{name:'優惠券'}">優惠券</router-link>
           <a href="#" @click.prevent="logout"></a>
       </div>
+      <div class="navbar-nav">
+          <router-link class="nav-link" :to="{name:'使用者'}">使用者列表</router-link>
+          <router-link class="nav-link" :to="{name:'購物車'}">使用者購物車</router-link>
+          <a href="#" @click.prevent="logout"></a>
+      </div>
     </div>
   </div>
   </nav>
